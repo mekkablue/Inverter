@@ -23,7 +23,7 @@ You can set a keyboard shortcut in System Preferences.
 
 ### Custom Parameter
 
-In *File > Font Info > Instances*, add a new Custom Parameter to an instance. You can trigger the filter with the filter key `Inverter`, e.g.:
+In *File > Font Info > Instances*, add a new Custom Parameter to an instance. You can trigger the filter with the filter key `Inverter`:
 
     Property: Filter
     Value: Inverter;topEdge;bottomEdge;overlap
@@ -32,6 +32,11 @@ Example:
 
     Property: Filter
     Value: Inverter;800;-200;5
+
+Optionally, you can add an include or exclude list:
+
+    Property: Filter
+    Value: Inverter;800;-200;5;include:a.ss01,b.ss01,c.ss01
 
 ### Requirements
 
