@@ -33,7 +33,7 @@
 	<key>NSAppleScriptEnabled</key>
 	<false/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright, Rainer Erich Scheichelbauer, 2015</string>
+	<string>Copyright, Rainer Erich Scheichelbauer (mekkablue), 2015</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
