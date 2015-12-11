@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
@@ -8,7 +8,6 @@
             <connections>
                 <outlet property="_view" destination="1" id="sc4-cV-ZFh"/>
                 <outlet property="bottomEdgeField" destination="FNv-gR-nUJ" id="rUb-zH-Ncg"/>
-                <outlet property="firstValueField" destination="vfg-c5-0Yw" id="gAu-eA-adq"/>
                 <outlet property="overlapField" destination="Q3Y-JY-hoO" id="O6e-43-REh"/>
                 <outlet property="topEdgeField" destination="vfg-c5-0Yw" id="aog-Fd-p0f"/>
             </connections>

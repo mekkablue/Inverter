@@ -220,6 +220,14 @@ class Inverter( FilterBase ):
 		except Exception as e:
 			self.logToConsole( "processFont_withArguments_: %s" % str(e) )
 	
+	def selectionOfLayer( self, Layer ):
+		"""Compatibility method for old and new versions of Glyphs."""
+		try:
+			return Layer.selection()
+		except:
+			return Layer.selection
+			
+	
 	def process_( self, sender ):
 		"""
 		This method gets called when the user invokes the Dialog.
@@ -234,13 +242,14 @@ class Inverter( FilterBase ):
 				Layer = Layers[k]
 				Layer.setPaths_( NSMutableArray.alloc().initWithArray_copyItems_( ShadowLayer.pyobjc_instanceMethods.paths(), True ) )
 				Layer.setSelection_( NSMutableArray.array() )
-				if len(ShadowLayer.selection()) > 0 and checkSelection:
+				shadowLayerSelection = self.selectionOfLayer(ShadowLayer)
+				if len(shadowLayerSelection) > 0 and checkSelection:
 					for i in range(len( ShadowLayer.paths )):
 						currShadowPath = ShadowLayer.paths[i]
 						currLayerPath = Layer.paths[i]
 						for j in range(len(currShadowPath.nodes)):
 							currShadowNode = currShadowPath.nodes[j]
-							if ShadowLayer.selection().containsObject_( currShadowNode ):
+							if shadowLayerSelection.containsObject_( currShadowNode ):
 								Layer.addSelection_( currLayerPath.nodes[j] )
 								
 				self.processLayerWithValues( Layer, self.topEdge, self.bottomEdge, self.overlap )
