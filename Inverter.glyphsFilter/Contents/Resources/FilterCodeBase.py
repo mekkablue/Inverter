@@ -2,16 +2,10 @@
 # encoding: utf-8
 
 import objc
-from Foundation import *
-from AppKit import *
 import sys, os, re
 
-MainBundle = NSBundle.mainBundle()
-path = MainBundle.bundlePath() + "/Contents/Scripts"
-if not path in sys.path:
-	sys.path.append( path )
-
-import GlyphsApp
+from GlyphsApp import *
+from GlyphsApp.plugins import *
 
 """
 	Using Interface Builder (IB):
@@ -48,6 +42,8 @@ import GlyphsApp
 	   Please note: Every time the .xib is changed, it has to be recompiled to a .nib.
 	   Check Console.app for error messages to see if everything went right.
 """
+
+GSFilterPlugin = objc.lookUpClass("GSFilterPlugin")
 
 class FilterBase ( GSFilterPlugin ):
 	def init( self ):

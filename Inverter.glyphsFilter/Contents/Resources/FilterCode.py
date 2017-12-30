@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import GlyphsApp
 import objc
-from Foundation import *
+from GlyphsApp import *
+from GlyphsApp.plugins import *
 from FilterCodeBase import FilterBase
 
 class Inverter( FilterBase ):
