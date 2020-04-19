@@ -1,4 +1,5 @@
 # encoding: utf-8
+from __future__ import division, print_function, unicode_literals
 
 ###########################################################################################################
 #
@@ -14,7 +15,7 @@
 #
 ###########################################################################################################
 
-
+import objc
 from GlyphsApp.plugins import *
 
 class Inverter(FilterWithDialog):
@@ -25,25 +26,28 @@ class Inverter(FilterWithDialog):
 	bottomEdgeField = objc.IBOutlet()
 	overlapField = objc.IBOutlet()
 	
+	@objc.python_method
 	def settings(self):
 		self.menuName = Glyphs.localize({
-			'en': u'Inverter',
-			'de': u'Invertieren',
-			'es': u'Invertar',
-			'it': u'Invertire',
-			'fr': u'Inverter'
+			'en': 'Inverter',
+			'de': 'Umkehren',
+			'fr': 'Inverter'
+			'es': 'Invertar',
+			'it': 'Invertire',
+			'pt': 'Inverter',
 		})
 		
 		NSUserDefaults.standardUserDefaults().registerDefaults_({
-				"com.mekkablue.Inverter.topEdge": 800.0,
-				"com.mekkablue.Inverter.bottomEdge": -200.0,
-				"com.mekkablue.Inverter.overlap": 5.0,
+			"com.mekkablue.Inverter.topEdge": 800.0,
+			"com.mekkablue.Inverter.bottomEdge": -200.0,
+			"com.mekkablue.Inverter.overlap": 5.0,
 			})
 		
 		# Load dialog from .nib (without .extension)
 		self.loadNib('IBdialog', __file__)
 	
 	# On dialog show
+	@objc.python_method
 	def start(self):
 		# Set value of text field
 		self.topEdgeField.setFloatValue_( Glyphs.defaults['com.mekkablue.Inverter.topEdge'] )
@@ -68,6 +72,7 @@ class Inverter(FilterWithDialog):
 		Glyphs.defaults['com.mekkablue.Inverter.overlap'] = sender.floatValue()
 		self.update()
 	
+	@objc.python_method
 	def pathRect( self, bottomLeft, topRight, italicAngle=0.0, downShift=0.0 ):
 		try:
 			# coordinates of rectangle:
@@ -105,21 +110,21 @@ class Inverter(FilterWithDialog):
 
 		except Exception as e:
 			import traceback
-			print traceback.format_exc()
-			print "pathRect: %s" % str(e)
+			print(traceback.format_exc())
+			print("pathRect: %s" % str(e))
 	
-		
+	@objc.python_method
 	def filter(self, layer, inEditView, customParameters):
 		topEdge = float( Glyphs.defaults['com.mekkablue.Inverter.topEdge'] )
 		bottomEdge = float( Glyphs.defaults['com.mekkablue.Inverter.bottomEdge'] )
 		overlap = float( Glyphs.defaults['com.mekkablue.Inverter.overlap'] )
 		
 		# Called on font export, override with values from customParameters:
-		if customParameters.has_key('top'):
+		if 'top' in customParameters:
 			topEdge = customParameters['top']
-		if customParameters.has_key('bottom'):
+		if 'bottom' in customParameters:
 			bottomEdge = customParameters['bottom']
-		if customParameters.has_key('overlap'):
+		if 'overlap' in customParameters:
 			overlap = customParameters['overlap']
 		
 		# upper and lower edges of rectangle:
@@ -141,6 +146,7 @@ class Inverter(FilterWithDialog):
 			layer.paths.append( rectangle )
 			layer.correctPathDirection()
 
+	@objc.python_method
 	def generateCustomParameter( self ):
 		return "%s; top:%s; bottom:%s; overlap:%s" % (
 			self.__class__.__name__,
@@ -149,6 +155,7 @@ class Inverter(FilterWithDialog):
 			Glyphs.defaults['com.mekkablue.Inverter.overlap'],
 			)
 	
+	@objc.python_method
 	def __file__(self):
 		"""Please leave this method unchanged"""
 		return __file__
