@@ -16,11 +16,12 @@ from __future__ import division, print_function, unicode_literals
 ###########################################################################################################
 
 import objc
+from GlyphsApp import *
 from GlyphsApp.plugins import *
+from AppKit import NSAffineTransform, NSPoint
+from math import tan, pi
 
 class Inverter(FilterWithDialog):
-	
-	# Definitions of IBOutlets
 	dialog = objc.IBOutlet()
 	topEdgeField = objc.IBOutlet()
 	bottomEdgeField = objc.IBOutlet()
@@ -31,18 +32,24 @@ class Inverter(FilterWithDialog):
 		self.menuName = Glyphs.localize({
 			'en': 'Inverter',
 			'de': 'Umkehren',
-			'fr': 'Inverter'
+			'fr': 'Inverter',
 			'es': 'Invertar',
 			'it': 'Invertire',
 			'pt': 'Inverter',
-		})
-		
-		NSUserDefaults.standardUserDefaults().registerDefaults_({
-			"com.mekkablue.Inverter.topEdge": 800.0,
-			"com.mekkablue.Inverter.bottomEdge": -200.0,
-			"com.mekkablue.Inverter.overlap": 5.0,
+			})
+		self.actionButtonLabel = Glyphs.localize({
+			'en': 'Invert',
+			'de': 'Umkehren',
+			'fr': 'Inverter',
+			'es': 'Invertar',
+			'it': 'Invertire',
+			'pt': 'Inverter',
 			})
 		
+		Glyphs.registerDefault( "com.mekkablue.Inverter.topEdge", 800.0 )
+		Glyphs.registerDefault( "com.mekkablue.Inverter.bottomEdge", -200.0 )
+		Glyphs.registerDefault( "com.mekkablue.Inverter.overlap", 5.0 )
+
 		# Load dialog from .nib (without .extension)
 		self.loadNib('IBdialog', __file__)
 	
@@ -96,7 +103,6 @@ class Inverter(FilterWithDialog):
 			if not italicAngle == 0.0:
 				
 				# calculate & build skew transformation:
-				from math import tan, pi
 				skewTangens = tan( italicAngle/180*pi )
 				skew = NSAffineTransform.transform()
 				skew.setTransformStruct_( (1.0, 0.0, skewTangens, 1.0, 0.0, downShift) )
@@ -134,7 +140,7 @@ class Inverter(FilterWithDialog):
 		# check italic angle and skew origin:
 		thisMaster = layer.associatedFontMaster()
 		skewAngle = thisMaster.italicAngle
-		halfXHeight = thisMaster.xHeight / 2.0
+		halfXHeight = thisMaster.xHeight * 0.5
 		
 		# build the rectangle path:
 		rectangle = self.pathRect( bottomLeft, topRight, skewAngle, halfXHeight )
@@ -143,7 +149,12 @@ class Inverter(FilterWithDialog):
 		if rectangle:
 			layer.decomposeComponents()
 			layer.removeOverlap()
-			layer.paths.append( rectangle )
+			try:
+				# GLYPHS 3
+				layer.shapes.append( rectangle )
+			except:
+				# GLYPHS 2
+				layer.paths.append( rectangle )
 			layer.correctPathDirection()
 
 	@objc.python_method
