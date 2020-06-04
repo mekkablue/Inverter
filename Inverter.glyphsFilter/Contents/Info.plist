@@ -13,15 +13,15 @@
 	<key>CFBundleName</key>
 	<string>Inverter</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0</string>
+	<string>2.0.1</string>
 	<key>UpdateFeedURL</key>
 	<string>https://raw.githubusercontent.com/mekkablue/Inverter/master/Inverter.glyphsFilter/Contents/Info.plist</string>
 	<key>productPageURL</key>
 	<string>https://github.com/mekkablue/Inverter</string>
 	<key>productReleaseNotes</key>
-	<string>Glyphs 3 compatibility, more Localisations.</string>
+	<string>Updated plugin binary.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright, Rainer Erich Scheichelbauer, 2015-2018</string>
 	<key>NSPrincipalClass</key>
